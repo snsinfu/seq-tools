@@ -1,9 +1,12 @@
 #!/bin/bash -eu
 
+limit=
 quiet=0
 
-while getopts q opt; do
+while getopts n:q opt; do
     case "${opt}" in
+    n)  limit="${OPTARG}"
+        ;;
     q)  quiet=1
         ;;
     *)  exit 1
@@ -13,6 +16,15 @@ done
 shift $((OPTIND - 1))
 
 dockerx ncbi/sra-tools vdb-dump -C READ_LEN "$1" \
+  | awk -v limit="${limit}" -F : '
+    /READ_LEN/ {
+      count++
+      if (limit != "" && count > limit) {
+        exit
+      }
+      print $2
+    }
+    ' \
   | awk -v quiet="${quiet}" -F '[ ,]+' '
     {
       for (i = 1; i <= NF; i++) {
