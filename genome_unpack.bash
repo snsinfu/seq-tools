@@ -16,6 +16,6 @@ for file in *.tar.zst; do
     tar xf "${file}"
 done
 
-for file in *.fa.zst; do
+for file in *.fa.zst *.gtf.zst; do
     unzstd "${file}"
 done
