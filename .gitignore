@@ -3,3 +3,5 @@ _*
 !.gitignore
 !.pixi.lock
 !.pixi/config
+
+/blacklist/*.bed

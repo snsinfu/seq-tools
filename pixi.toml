@@ -1,0 +1,19 @@
+[workspace]
+name = "seq-tools"
+version = "0.1.0"
+channels = ["conda-forge", "bioconda"]
+platforms = ["linux-64", "osx-arm64"]
+
+[feature.r-blacklist]
+dependencies = {
+    "r-base" = ">=4.3",
+    "bioconductor-annotationhub" = ">=3.16",
+    "bioconductor-genomicranges" = "*",
+    "bioconductor-rtracklayer" = "*"
+}
+tasks = {
+    build-blacklists = "cd blacklist && Rscript blacklist.R"
+}
+
+[environments]
+blacklist = ["r-blacklist"]
