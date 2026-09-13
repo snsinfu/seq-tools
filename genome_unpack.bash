@@ -1,5 +1,7 @@
 #!/bin/bash -eu
 
+shopt -s nullglob
+
 case $# in
 0)  exit
     ;;
