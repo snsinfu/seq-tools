@@ -24,6 +24,6 @@ archive_rule=(
 
 for prefix in "$@"; do
     find "${prefix}" "${archive_rule[@]}" \
-      | awk -v bucket="${bucket}" '{ print "cp " $1 " s3://" bucket "/" $1 }' \
+      | awk -v bucket="${bucket}" '{ print "cp -u " $1 " s3://" bucket "/" $1 }' \
       | s5cmd run
 done
